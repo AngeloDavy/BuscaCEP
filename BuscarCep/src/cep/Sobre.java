@@ -1,14 +1,18 @@
 package cep;
 
-import java.awt.EventQueue;
-
-import javax.swing.JDialog;
-import java.awt.Toolkit;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import java.awt.SystemColor;
-import javax.swing.ImageIcon;
 import java.awt.Cursor;
+import java.awt.Desktop;
+import java.awt.EventQueue;
+import java.awt.SystemColor;
+import java.awt.Toolkit;
+import java.net.URI;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Sobre extends JDialog {
 
@@ -35,10 +39,11 @@ public class Sobre extends JDialog {
 	 * Create the dialog.
 	 */
 	public Sobre() {
+		setModal(true);
 		setTitle("Sobre");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Sobre.class.getResource("/img/home.png")));
 		setResizable(false);
-		setBounds(100, 100, 450, 300);
+		setBounds(150, 150, 450, 300);
 		getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Buscar CEP 1.0");
@@ -49,15 +54,35 @@ public class Sobre extends JDialog {
 		lblNewLabel_1.setBounds(49, 71, 171, 14);
 		getContentPane().add(lblNewLabel_1);
 		
-		JButton btnNewButton = new JButton("");
-		btnNewButton.setBorder(null);
-		btnNewButton.setToolTipText("Repositório");
-		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNewButton.setIcon(new ImageIcon(Sobre.class.getResource("/img/github.png")));
-		btnNewButton.setBackground(SystemColor.control);
-		btnNewButton.setBounds(49, 176, 48, 48);
-		getContentPane().add(btnNewButton);
+		JButton btnGitHub = new JButton("");
+		btnGitHub.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				link("https://github.com/AngeloDavy/BuscaCEP");
+				
+			}
+		});
+		btnGitHub.setBorder(null);
+		btnGitHub.setToolTipText("Repositório");
+		btnGitHub.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnGitHub.setIcon(new ImageIcon(Sobre.class.getResource("/img/github.png")));
+		btnGitHub.setBackground(SystemColor.control);
+		btnGitHub.setBounds(49, 176, 48, 48);
+		getContentPane().add(btnGitHub);
 
 	}
+	
+	private void link(String site) {
+		
+		Desktop desktop = Desktop.getDesktop();
+		try {
+			URI uri = new URI(site);
+			desktop.browse(uri);
+		} catch (Exception e) {
+			System.out.print(e);
+		}
+		
+	}
+	
 
 }
